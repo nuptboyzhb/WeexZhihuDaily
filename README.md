@@ -27,6 +27,10 @@ http://nuptboyzhb.oss-cn-shanghai.aliyuncs.com/home.js
 - 下拉刷新
 - 上拉加载更多
 
+<br>
+![zhihu_home](qrcode/zhihu_home.gif)
+<br>
+
 ### TODO
 - 帖子详情页
 - 评论页
