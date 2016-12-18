@@ -1,0 +1,39 @@
+<template>
+    <div style="width: 750px;height: 40px;background-color: #e0e0e0;justify-content: center;">
+        <text class="text">{{title}}</text>
+    </div>
+
+</template>
+
+<style>
+
+    .text {
+        font-size: 25px;
+        margin-left: 30px;
+        margin-right: 10px;
+        color: #a5a5a5;
+    }
+
+</style>
+
+<script>
+    module.exports = {
+
+        computed: {
+            title: {
+                get: function () {
+                    if (this.item && this.item.date) {
+                        return this.item.date;
+                    }
+                    return '';
+                }
+            }
+        },
+        data: {
+            item: {
+                date: '2016-12-10'
+            }
+        },
+        methods: {}
+    }
+</script>

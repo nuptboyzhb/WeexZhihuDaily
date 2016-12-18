@@ -1,0 +1,96 @@
+<template>
+    <div>
+        <text>{{title}}</text>
+        <web class="web" html="{{html}}"></web>
+    </div>
+
+</template>
+
+<style>
+
+    .web {
+        width: 750px;
+        height: 1340px;
+        background-color: #ff0000;
+    }
+
+</style>
+
+<script>
+
+
+    var mockNewsDetail = require('../mock/news-detail');
+    var stream = require('@weex-module/stream');
+
+    module.exports = {
+
+        computed: {
+            html: {
+                get: function () {
+                    if (this.story && this.story.body && this.story.css) {
+                        var html = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="'
+                                + this.story.css[0]
+                                + '" /></head><body>' + this.story.body
+                                + '</body></html>';
+                        return html;
+                    }
+                    return '';
+                }
+            },
+            title: {
+                get: function () {
+                    if (this.story && this.story.title) {
+                        return this.story.title;
+                    }
+                    return '';
+                }
+            }
+        },
+        data: {
+            id: 9064596,
+            story: {
+                "body": "",
+                "image_source": "《你的名字。》",
+                "title": "什么技术可以体验交换身体的感觉？",
+                "image": "http:\/\/pic3.zhimg.com\/4ede28618c583990f72c02f84bb8173a.jpg",
+                "share_url": "http:\/\/daily.zhihu.com\/story\/9064596",
+                "js": [],
+                "ga_prefix": "121718",
+                "images": ["http:\/\/pic3.zhimg.com\/f632efba140aed5cc8b1a7ebd65db716.jpg"],
+                "type": 0,
+                "id": 9064596,
+                "css": ["http:\/\/news-at.zhihu.com\/css\/news_qa.auto.css?v=4b3e3"]
+            }
+        },
+        init: {},
+        methods: {
+            loadDetailData: function () {
+                var storyId = this.id;
+                var that = this;
+                stream.fetch({
+                    method: 'GET',
+                    url: "http://news-at.zhihu.com/api/4/news/" + storyId,
+                    type: 'json'
+                }, function (response) {
+                    if (response && response.data) {
+                        that.processServerData(response.data);
+                    } else {
+                        modal.toast({
+                            message: '网络请求失败',
+                            duration: 1
+                        });
+                        that.processServerData(mockNewsDetail.newsDetail);
+                    }
+                }, function (response) {
+                    console.log("###response2 = " + JSON.stringify(response));
+                });
+            },
+            processServerData: function (detail) {
+                this.story = detail;
+            }
+        },
+        created: function () {
+            this.loadDetailData();
+        }
+    }
+</script>

@@ -1,0 +1,189 @@
+<template>
+
+    <div>
+        <list>
+            <!-- 添加下拉刷新-->
+            <refresh class="refresh-view" display="{{refreshDisplay}}" onrefresh="loadFirstData">
+                <text if="{{(refreshDisplay==='hide')}}">下拉刷新</text>
+                <loading-indicator class="indicator"></loading-indicator>
+            </refresh>
+
+            <cell repeat="{{item in storyList}}">
+
+                <wxc-item-date scope="{{item.type}}" if="{{item.type === 'date'}}"
+                               item="{{item.data}}">
+                </wxc-item-date>
+
+                <wxc-top-story-banner scope="{{item.type}}" if="{{item.type === 'banner'}}"
+                                      item="{{item.data}}">
+                </wxc-top-story-banner>
+
+                <wxc-item-story scope="{{item.type}}" if="{{item.type === 'story'}}"
+                                item="{{item.data}}">
+                </wxc-item-story>
+
+            </cell>
+
+            <loading class="loading-view" display="{{loadingDisplay}}" onloading="onLoadingMore">
+                <text if="{{(loadingDisplay==='hide')}}">↑ Loadmore</text>
+                <loading-indicator class="indicator"></loading-indicator>
+            </loading>
+
+        </list>
+    </div>
+</template>
+
+<style>
+
+    .refresh-view {
+        width: 750px;
+        height: 120px;
+        align-items: center;
+    }
+
+    .indicator {
+        height: 60px;
+        width: 60px;
+        padding: 10px;
+        color: #889967;
+    }
+
+    .loading-view {
+        width: 750px;
+        height: 100px;
+        align-items: center;
+    }
+
+</style>
+
+<script>
+
+    require('../components/wxc-top-story-banner.we');
+    require('../components/wxc-item-story.we');
+    require('../components/wxc-item-date.we');
+
+    var mockLatestNews = require('../mock/latest-news');
+    var modal = require('@weex-module/modal');
+    var stream = require('@weex-module/stream');
+    var env;
+    var platform;
+
+    module.exports = {
+
+        computed: {},
+        data: {
+            loadMoreOffset: 2,
+            refreshDisplay: 'hide',
+            loadingDisplay: 'hide',
+            loadMoreDateOffset: 1,
+            storyList: []
+        },
+        methods: {
+            loadFirstData: function () {
+                this.loadMoreDateOffset = 1;
+                this.refreshDisplay = 'show';
+                var that = this;
+                stream.fetch({
+                    method: 'GET',
+                    url: "http://news-at.zhihu.com/api/4/news/latest",
+                    type: 'json'
+                }, function (response) {
+                    if (response && response.data) {
+                        that.processServerData(response.data);
+                    } else {
+                        modal.toast({
+                            message: '网络请求失败,使用mock数据',
+                            duration: 1
+                        });
+                        var latestNews = mockLatestNews.latestNews;
+                        that.processServerData(latestNews);
+                    }
+                }, function (response) {
+                    console.log("###response2 = " + JSON.stringify(response));
+                });
+            },
+            onLoadingMore: function () {
+                this.loadingDisplay = 'show';
+                var paramDate = this.getParamDate(false);
+                console.log("###paramDate = " + paramDate);
+                var that = this;
+                stream.fetch({
+                    method: 'GET',
+                    url: "http://news-at.zhihu.com/api/4/news/before/" + paramDate,
+                    type: 'json'
+                }, function (response) {
+                    if (response && response.data) {
+                        that.processLoadMore(response.data);
+                        that.loadMoreDateOffset = that.loadMoreDateOffset + 1;
+                        that.loadingDisplay = 'hide';
+                    } else {
+                        modal.toast({
+                            message: '网络请求失败,使用mock数据',
+                            duration: 1
+                        });
+                    }
+                }, function (response) {
+                    console.log("###response2 = " + JSON.stringify(response));
+                });
+            },
+            processServerData: function (latestNews) {
+                var tempStoryList = [];
+                if (latestNews && latestNews.stories && latestNews.top_stories) {
+                    var storyItem = {type: '', data: {}};
+                    storyItem.type = 'banner';
+                    storyItem.data = latestNews.top_stories;
+                    tempStoryList.push(storyItem);//add banner data
+                    var currentDate = this.getCurrentDate();
+                    var dateItem = {type: 'date', data: {date: currentDate}};
+                    tempStoryList.push(dateItem);//add date
+                    for (var i = 0; i < latestNews.stories.length; i++) {
+                        var item = {type: '', data: {}};
+                        item.type = 'story';
+                        item.data = latestNews.stories[i];
+                        tempStoryList.push(item);//add story item
+                    }
+                    this.storyList = tempStoryList;
+                    this.refreshDisplay = 'hide';
+                }
+            },
+            processLoadMore: function (beforeNews) {
+                var tempStoryList = [];
+                tempStoryList = tempStoryList.concat(this.storyList);
+                if (beforeNews && beforeNews.stories) {
+                    var currentDate = this.getParamDate(true);
+                    var dateItem = {type: 'date', data: {date: currentDate}};
+                    tempStoryList.push(dateItem);//add date
+                    for (var i = 0; i < beforeNews.stories.length; i++) {
+                        var item = {type: '', data: {}};
+                        item.type = 'story';
+                        item.data = beforeNews.stories[i];
+                        tempStoryList.push(item);//add story item
+                    }
+                    this.storyList = tempStoryList;
+                }
+            },
+            getCurrentDate: function () {
+                var nowDate = new Date();
+                return nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + nowDate.getDate();
+            },
+            getParamDate: function (isShow) {
+                var nowDate = new Date();
+                var paramTime = nowDate.getTime() - 1000 * 60 * 60 * 24 * this.loadMoreDateOffset;
+                var paramDate = new Date(paramTime);
+                if (isShow) {
+                    return paramDate.getFullYear() + '-' + (paramDate.getMonth() + 1) + '-' + paramDate.getDate();
+                }
+                return paramDate.getFullYear() + '' + (paramDate.getMonth() + 1) + '' + paramDate.getDate();
+            }
+        },
+        init: function () {
+            var cfg = this.$getConfig();
+            env = cfg.env;
+            platform = env.platform.toLowerCase();
+        },
+        created: function () {
+            this.loadFirstData();
+        }
+    }
+
+</script>

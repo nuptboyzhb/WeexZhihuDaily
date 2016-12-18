@@ -1,0 +1,96 @@
+<template>
+    <div>
+        <slider class="slider" append="tree" interval="2000" auto-play="true">
+            <div repeat="{{story in stories}}">
+                <image class="image" src="{{story.image}}" resize="cover"></image>
+                <text class="text">{{story.title}}</text>
+            </div>
+            <indicator class="indicator"></indicator>
+        </slider>
+    </div>
+</template>
+
+<style>
+    .slider {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 750px;
+        height: 400px;
+    }
+
+    .indicator {
+        position: absolute;
+        width: 750px;
+        height: 30px;
+        bottom: 0px;
+        left: 1px;
+        itemColor: #ffffff;
+        itemSelectedColor: #a5a5a5;
+    }
+
+    .image {
+        width: 750px;
+        height: 400px;
+    }
+
+    .text {
+        position: absolute;
+        width: 600px;
+        top: 300px;
+        left: 20px;
+        font-size: 30px;
+        color: #ffffff
+    }
+
+</style>
+
+<script>
+    module.exports = {
+
+        computed: {
+            stories: {
+                get: function () {
+                    if (!this.item) {
+                        return [];
+                    }
+                    return this.item;
+                }
+            }
+        },
+        data: {
+            item: [{
+                "image": "http:\/\/pic4.zhimg.com\/053078356044ae121ee133edeae751a7.jpg",
+                "type": 0,
+                "id": 9073905,
+                "ga_prefix": "121717",
+                "title": "知乎好问题 · 哪些电影拥有最美丽的风景？"
+            }, {
+                "image": "http:\/\/pic3.zhimg.com\/4ede28618c583990f72c02f84bb8173a.jpg",
+                "type": 0,
+                "id": 9064596,
+                "ga_prefix": "121718",
+                "title": "什么技术可以体验交换身体的感觉？"
+            }, {
+                "image": "http:\/\/pic2.zhimg.com\/0189a453c2f19c8351b8c99810ba5ddd.jpg",
+                "type": 0,
+                "id": 9058548,
+                "ga_prefix": "121714",
+                "title": "职场新人，别忙着规划人生，先来认识你自己"
+            }, {
+                "image": "http:\/\/pic1.zhimg.com\/db5e3bd9e41a198199ec8669e7ff3598.jpg",
+                "type": 0,
+                "id": 9061099,
+                "ga_prefix": "121707",
+                "title": "口臭是会呼吸的痛，除了不出气还有别的办法吗？"
+            }, {
+                "image": "http:\/\/pic4.zhimg.com\/7dec966aa0be9aee830f2b6dd6de5b1b.jpg",
+                "type": 0,
+                "id": 9072337,
+                "ga_prefix": "121707",
+                "title": "读读日报 24 小时热门 TOP 5 · 「饭替」和「挨耳光替」"
+            }]
+        },
+        methods: {}
+    }
+</script>
