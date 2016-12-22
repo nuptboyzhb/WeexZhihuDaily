@@ -8,7 +8,7 @@ API接口来源：https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E
 
 ### 使用说明
 
-使用Weex 的官方PlayGround，扫描下列二维码：<br>
+使用Weex 的官方PlayGround([http://alibaba.github.io/weex/download.html](http://alibaba.github.io/weex/download.html))，扫描下列二维码：<br>
 
 ![zhihu_home_qr.png](qrcode/zhihu_home_qr.png)
 <br>weex首页二维码
@@ -34,3 +34,8 @@ http://nuptboyzhb.oss-cn-shanghai.aliyuncs.com/home.js
 ### TODO
 - 帖子详情页
 - 评论页
+
+
+### 相关博客
+
+- [Weex Android SDK源码分析](http://www.jianshu.com/p/3160a0297345)
