@@ -22,12 +22,12 @@
                                 item="{{item.data}}">
                 </wxc-item-story>
 
-            </cell>
+                <!-- 自动加载更多 -->
+                <wxc-item-loading-more scope="{{item.type}}" if="{{item.type === 'loadMore'}}" tips="{{loadingText}}"
+                                       onappear="onLoadingMoreAppear">
+                </wxc-item-loading-more>
 
-            <loading class="loading-view" display="{{loadingDisplay}}" onloading="onLoadingMore">
-                <text if="{{(loadingDisplay==='hide')}}">↑ Loadmore</text>
-                <loading-indicator class="indicator"></loading-indicator>
-            </loading>
+            </cell>
 
         </list>
     </div>
@@ -61,6 +61,7 @@
     require('../components/wxc-top-story-banner.we');
     require('../components/wxc-item-story.we');
     require('../components/wxc-item-date.we');
+    require('../components/wxc-item-loading-more.we');
 
     var mockLatestNews = require('../mock/latest-news');
     var modal = require('@weex-module/modal');
@@ -72,6 +73,7 @@
 
         computed: {},
         data: {
+            loadingText: '正在加载中...',
             loadMoreOffset: 2,
             refreshDisplay: 'hide',
             loadingDisplay: 'hide',
@@ -79,6 +81,32 @@
             storyList: []
         },
         methods: {
+            onLoadingMoreAppear: function (e) {
+                //当'加载更多'item出现时，开始请求下一页数据
+                //var appearId = this.rows[e.target.attr.index].id;
+                //console.log('###appearId = ' + appearId);
+                this.onLoadingMore();
+            },
+            addLoadMoreItemIfNeed: function () {
+                if (!this.storyList || this.storyList.length <= 0) {
+                    return;
+                }
+                var lastItem = this.storyList[this.storyList.length - 1];
+                if (lastItem.type != 'loadMore') {
+                    var loadMoreItem = {};
+                    loadMoreItem.type = 'loadMore';
+                    this.storyList.push(loadMoreItem);
+                }
+            },
+            removeLastItemIfNeed: function () {
+                if (!this.storyList || this.storyList.length <= 0) {
+                    return;
+                }
+                var lastItem = this.storyList[this.storyList.length - 1];
+                if (lastItem.type == 'loadMore') {
+                    this.storyList.pop();
+                }
+            },
             loadFirstData: function () {
                 this.loadMoreDateOffset = 1;
                 this.refreshDisplay = 'show';
@@ -104,6 +132,7 @@
             },
             onLoadingMore: function () {
                 this.loadingDisplay = 'show';
+                this.loadingText = '正在加载中...';
                 var paramDate = this.getParamDate(false);
                 console.log("###paramDate = " + paramDate);
                 var that = this;
@@ -144,9 +173,11 @@
                     }
                     this.storyList = tempStoryList;
                     this.refreshDisplay = 'hide';
+                    this.addLoadMoreItemIfNeed();
                 }
             },
             processLoadMore: function (beforeNews) {
+                this.removeLastItemIfNeed();
                 var tempStoryList = [];
                 tempStoryList = tempStoryList.concat(this.storyList);
                 if (beforeNews && beforeNews.stories) {
@@ -161,6 +192,7 @@
                     }
                     this.storyList = tempStoryList;
                 }
+                this.addLoadMoreItemIfNeed();
             },
             getCurrentDate: function () {
                 var nowDate = new Date();
