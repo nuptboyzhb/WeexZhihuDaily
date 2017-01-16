@@ -141,6 +141,7 @@
                     url: "http://news-at.zhihu.com/api/4/news/before/" + paramDate,
                     type: 'json'
                 }, function (response) {
+                    console.log('### response = ' + JSON.stringify(response));
                     if (response && response.data) {
                         that.processLoadMore(response.data);
                         that.loadMoreDateOffset = that.loadMoreDateOffset + 1;
@@ -202,10 +203,18 @@
                 var nowDate = new Date();
                 var paramTime = nowDate.getTime() - 1000 * 60 * 60 * 24 * this.loadMoreDateOffset;
                 var paramDate = new Date(paramTime);
+                var mm = paramDate.getMonth() + 1; // getMonth() is zero-based
+                var dd = paramDate.getDate();
                 if (isShow) {
-                    return paramDate.getFullYear() + '-' + (paramDate.getMonth() + 1) + '-' + paramDate.getDate();
+                    return [paramDate.getFullYear(),
+                        (mm > 9 ? '' : '0') + mm,
+                        (dd > 9 ? '' : '0') + dd
+                    ].join('-');
                 }
-                return paramDate.getFullYear() + '' + (paramDate.getMonth() + 1) + '' + paramDate.getDate();
+                return [paramDate.getFullYear(),
+                    (mm > 9 ? '' : '0') + mm,
+                    (dd > 9 ? '' : '0') + dd
+                ].join('');
             }
         },
         init: function () {

@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7f53120-a44f-4c76-b2c2-7a87550826e4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/wxc-item-loading-more.we" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home.we" afterPath="$PROJECT_DIR$/src/pages/home.we" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/weex_tmp/h5_render/home.js" afterPath="$PROJECT_DIR$/src/pages/weex_tmp/h5_render/home.js" />
     </list>
     <ignored path="WeexZhihuDaily.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,8 +29,8 @@
       <file leaf-file-name="home.we" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/home.we">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+            <state relative-caret-position="392">
+              <caret line="207" column="29" selection-start-line="207" selection-start-column="29" selection-end-line="207" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -111,7 +109,6 @@
               <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
               <folding>
                 <marker date="1482236569000" expanded="true" signature="1743:1744" ph="{...}" />
-                <marker date="1482236569000" expanded="true" signature="1743:1759" ph="..." />
               </folding>
             </state>
           </provider>
@@ -168,9 +165,9 @@
     <handled-path value="$PROJECT_DIR$/src/pages/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="43" />
+    <option name="x" value="42" />
     <option name="y" value="23" />
-    <option name="width" value="1397" />
+    <option name="width" value="1398" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -214,7 +211,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -304,6 +300,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -402,18 +399,20 @@
       <workItem from="1482065553421" duration="434000" />
       <workItem from="1482068706326" duration="922000" />
       <workItem from="1482070835100" duration="51000" />
-      <workItem from="1482671382221" duration="1292000" />
+      <workItem from="1482671382221" duration="1846000" />
+      <workItem from="1482818595656" duration="2646000" />
+      <workItem from="1484536679254" duration="817000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17718000" />
+    <option name="totallyTimeSpent" value="21735000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="43" y="23" width="1397" height="877" extended-state="6" />
-    <editor active="false" />
+    <frame x="42" y="23" width="1398" height="877" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17732558" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1771968" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938075" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -479,7 +478,6 @@
           <caret line="43" column="19" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
           <folding>
             <marker date="1482236569000" expanded="true" signature="1743:1744" ph="{...}" />
-            <marker date="1482236569000" expanded="true" signature="1743:1759" ph="..." />
           </folding>
         </state>
       </provider>
@@ -871,7 +869,6 @@
           <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
           <folding>
             <marker date="1482236569000" expanded="true" signature="1743:1744" ph="{...}" />
-            <marker date="1482236569000" expanded="true" signature="1743:1759" ph="..." />
           </folding>
         </state>
       </provider>
@@ -899,8 +896,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/home.we">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+        <state relative-caret-position="392">
+          <caret line="207" column="29" selection-start-line="207" selection-start-column="29" selection-end-line="207" selection-end-column="29" />
           <folding />
         </state>
       </provider>
